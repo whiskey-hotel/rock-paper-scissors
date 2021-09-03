@@ -54,7 +54,7 @@ function game(rounds = 5) {
 	let cpuPoints = 0;
 	let cpu;
 	let user;
-	let chk;
+	let results;
 
 	for (let i = 0; i < rounds; i++) {
 		cpu = computerPlay();
@@ -62,13 +62,13 @@ function game(rounds = 5) {
 		if (user === null) {
 			return "Game canceled. Play again soon!";
 		}
-		chk = playRound(user, cpu);
-		console.log(chk[0]);
-		if (chk[1] === 0) {
+		results = playRound(user, cpu);
+		console.log(results[0]);
+		if (results[1] === 0) {
 			++userPoints;
-		} else if (chk[1] === 2) {
+		} else if (results[1] === 2) {
 			++cpuPoints;
-		} else if (chk[1] === 1) {
+		} else if (results[1] === 1) {
 			--i;
 		}
 	}
@@ -76,7 +76,7 @@ function game(rounds = 5) {
 	if (userPoints > cpuPoints) {
 		return `Congratualations! You beat the Computer ${userPoints} to ${cpuPoints}!`;
 	} else if (userPoints < cpuPoints) {
-		return `You lose to the Computer. ${cpuPoints} to ${userPoints}.`;
+		return `You loss to the Computer. ${cpuPoints} to ${userPoints}.`;
 	} else {
 		return `You and the computer tied. ${cpuPoints} to ${userPoints}. `;
 	}
