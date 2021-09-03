@@ -12,34 +12,36 @@ function computerPlay() {
 
 function userPlay() {
 	let userChoice;
-	while (!userChoice) {
+	let chk = false;
+	do {
 		userChoice = prompt(
 			"Please select rock, paper, or scissors."
 		).toLowerCase();
-		// if (
-		// 	userChoice != "rock" ||
-		// 	userChoice != "paper" ||
-		// 	userChoice != "scissors"
-		// ) {
-		// 	userChoice = false;
-		// }
-	}
+
+		if (
+			userChoice === "rock" ||
+			userChoice === "paper" ||
+			userChoice === "scissors"
+		) {
+			chk = true;
+		}
+	} while (chk === false);
 
 	return userChoice;
 }
 
-function playRound(playerSelection, computerSelection, playerScore, cpuScore) {
-	switch ((playerSelection, computerSelection)) {
+function playRound(playerSelection, computerSelection) {
+	switch ((true)) {
 		case playerSelection === "rock" && computerSelection === "scissors":
-			return ["Rock beats scissors! You win!", ++playerScore];
+			return ["Rock beats scissors! You win!", 0];
 		case playerSelection === "paper" && computerSelection === "rock":
-			return ["Paper beats rock! You win!", ++playerScore];
-		case playerSelection === "Scissors" && computerSelection === "paper":
-			return ["Scissors beats paper! You win!", ++playerScore];
+			return ["Paper beats rock! You win!", 0];
+		case playerSelection === "scissors" && computerSelection === "paper":
+			return ["Scissors beats paper! You win!", 0];
 		case playerSelection === computerSelection:
-			return ["You and the CPU made the same choice"];
+			return ["You and the CPU made the same choice. Go again!", 1];
 		default:
-			return ["The CPU beat you.", ++cpuScore];
+			return ["The CPU beat you.", 2];
 	}
 }
 
@@ -48,14 +50,20 @@ function game(rounds = 5) {
 	let cpuPoints = 0;
 	let cpu;
 	let user;
+	let chk;
 
 	for (let i = 0; i < rounds; i++) {
 		cpu = computerPlay();
 		user = userPlay();
-		console.log(playRound(user, cpu, userPoints, cpuPoints)[0]);
-		userPoints = playRound(user, cpu, userPoints, cpuPoints)[1];
-		cpuPoints = playRound(user, cpu, userPoints, cpuPoints)[1];
-        // The points are going to both opponenets. fix this next
+		chk = playRound(user, cpu);
+		console.log(chk[0])
+		if (chk[1] === 0) {
+			++userPoints;
+		} else if(chk[1] === 2) {
+			++cpuPoints;
+		} else if (chk[1] === 1){
+			--i
+		}
 	}
 
 	if (userPoints > cpuPoints) {
