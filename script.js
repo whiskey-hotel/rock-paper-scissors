@@ -14,9 +14,13 @@ function userPlay() {
 	let userChoice;
 	let chk = false;
 	do {
-		userChoice = prompt(
-			"Please select rock, paper, or scissors."
-		).toLowerCase();
+		userChoice = prompt("Please select rock, paper, or scissors.");
+
+		if (userChoice === null) {
+			return userChoice;
+		}
+
+		userChoice = userChoice.toLowerCase();
 
 		if (
 			userChoice === "rock" ||
@@ -31,7 +35,7 @@ function userPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-	switch ((true)) {
+	switch (true) {
 		case playerSelection === "rock" && computerSelection === "scissors":
 			return ["Rock beats scissors! You win!", 0];
 		case playerSelection === "paper" && computerSelection === "rock":
@@ -55,14 +59,17 @@ function game(rounds = 5) {
 	for (let i = 0; i < rounds; i++) {
 		cpu = computerPlay();
 		user = userPlay();
+		if (user === null) {
+			return "Game canceled. Play again soon!";
+		}
 		chk = playRound(user, cpu);
-		console.log(chk[0])
+		console.log(chk[0]);
 		if (chk[1] === 0) {
 			++userPoints;
-		} else if(chk[1] === 2) {
+		} else if (chk[1] === 2) {
 			++cpuPoints;
-		} else if (chk[1] === 1){
-			--i
+		} else if (chk[1] === 1) {
+			--i;
 		}
 	}
 
