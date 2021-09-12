@@ -1,13 +1,12 @@
-const rock = document.querySelector("#rock");
-const paper = document.querySelector("#paper");
-const scissors = document.querySelector("#scissors");
-const resultResponse = document.querySelector("#results");
-const userScore = document.querySelector("#userScore");
-const cpuScore = document.querySelector("#cpuScore");
-const gameOver = document.querySelector("#gameOver");
+const h2 = document.querySelector("h2");
+const h3 = document.querySelector("h3");
+const bestOf3 = document.querySelector("#bestOf3");
+const bestOf5 = document.querySelector("#bestOf5");
+const bestOf7 = document.querySelector("#bestOf7");
+
 let userPoints = 0;
 let cpuPoints = 0;
-let maxPoints = 5;
+let maxPoints;
 
 function computerPlay() {
 	let cpuChoice = Math.floor(Math.random() * 3);
@@ -55,30 +54,91 @@ function update(userSelection) {
 	cpuPoints = scoreUpdate[1];
 
 	if (userPoints == maxPoints) {
-		gameOver.textContent = `Congratualations! You beat the Computer ${userPoints} to ${cpuPoints}!`;
-		userPoints = 0;
-		cpuPoints = 0;
-		userScore.textContent = `User Score: ${userPoints}`;
-		cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+		resetBoard(
+			`Congratualations! You beat the Computer ${userPoints} to ${cpuPoints}!`
+		);
 	} else if (cpuPoints == maxPoints) {
-		gameOver.textContent = `You loss to the Computer. ${cpuPoints} to ${userPoints}.`;
-		userPoints = 0;
-		cpuPoints = 0;
-		userScore.textContent = `User Score: ${userPoints}`;
-		cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+		resetBoard(`You loss to the Computer. ${cpuPoints} to ${userPoints}.`);
 	}
 }
 
-rock.addEventListener("click", function () {
-	update("rock");
-});
-paper.addEventListener("click", function () {
-	update("paper");
-});
-scissors.addEventListener("click", function () {
-	update("scissors");
-});
+function setGameBoard(max) {
+	const rock = document.createElement("button");
+	rock.id = "rock";
+	rock.textContent = "Rock";
 
-// console.log(update("rock"));
-// console.log(update("scissors"));
-// console.log(update("paper"));
+	const paper = document.createElement("button");
+	paper.id = "paper";
+	paper.textContent = "Paper";
+
+	const scissors = document.createElement("button");
+	scissors.id = "scissors";
+	scissors.textContent = "Scissors";
+
+	const userScore = document.createElement("div");
+	userScore.id = "userScore";
+	userPoints = 0;
+	userScore.textContent = `User Score: ${userPoints}`;
+
+	const cpuScore = document.createElement("div");
+	cpuScore.id = "cpuScore";
+	cpuPoints = 0;
+	cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+
+	const resultResponse = document.createElement("div");
+	resultResponse.id = "resultResponse";
+
+	h2.textContent = "";
+	h3.textContent = "";
+	container.removeChild(bestOf3);
+	container.removeChild(bestOf5);
+	container.removeChild(bestOf7);
+
+	container.appendChild(userScore);
+	container.appendChild(cpuScore);
+	container.appendChild(resultResponse);
+	container.appendChild(rock);
+	container.appendChild(paper);
+	container.appendChild(scissors);
+
+	maxPoints = max;
+	rock.addEventListener("click", function () {
+		update("rock");
+	});
+	paper.addEventListener("click", function () {
+		update("paper");
+	});
+	scissors.addEventListener("click", function () {
+		update("scissors");
+	});
+}
+
+function resetBoard(gameOverText) {
+	h2.textContent = gameOverText;
+	h3.textContent = "Play Again!";
+
+	container.removeChild(cpuScore);
+	container.removeChild(userScore);
+	container.removeChild(resultResponse);
+	container.removeChild(rock);
+	container.removeChild(paper);
+	container.removeChild(scissors);
+
+	container.appendChild(bestOf3);
+	container.appendChild(bestOf5);
+	container.appendChild(bestOf7);
+}
+
+if (!!document.getElementById("bestOf3")) {
+	bestOf3.addEventListener("click", function () {
+		setGameBoard(2);
+	});
+
+	bestOf5.addEventListener("click", function () {
+		setGameBoard(3);
+	});
+
+	bestOf7.addEventListener("click", function () {
+		setGameBoard(4);
+	});
+}
