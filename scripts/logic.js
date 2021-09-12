@@ -38,18 +38,18 @@ function playRound(playerSelection, computerSelection) {
 function score(result, userPoints, cpuPoints) {
 	if (result === 0) {
 		++userPoints;
-		userScore.textContent = `User Score: ${userPoints}`;
+		userPointsDisplay.textContent = `${userPoints}`;
 	} else if (result === 2) {
 		++cpuPoints;
-		cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+		cpuPointsDisplay.textContent = `${cpuPoints}`;
 	}
 	return [userPoints, cpuPoints];
 }
 
 function update(userSelection) {
 	let selection = playRound(userSelection, computerPlay());
-	resultResponse.textContent = selection[0];
 	let scoreUpdate = score(selection[1], userPoints, cpuPoints);
+	resultResponse.textContent = selection[0];
 	userPoints = scoreUpdate[0];
 	cpuPoints = scoreUpdate[1];
 
@@ -65,25 +65,41 @@ function update(userSelection) {
 function setGameBoard(max) {
 	const rock = document.createElement("button");
 	rock.id = "rock";
+	rock.classList.add("userSelection");
 	rock.textContent = "Rock";
 
 	const paper = document.createElement("button");
 	paper.id = "paper";
+	paper.classList.add("userSelection");
 	paper.textContent = "Paper";
 
 	const scissors = document.createElement("button");
 	scissors.id = "scissors";
+	scissors.classList.add("userSelection");
 	scissors.textContent = "Scissors";
+
+	const scoreBoard = document.createElement("div");
+	scoreBoard.id = "scoreBoard";	
 
 	const userScore = document.createElement("div");
 	userScore.id = "userScore";
+	userScore.textContent = `User Score:`;
+
+	const userPointsDisplay = document.createElement("div");
+	userPointsDisplay.id = "userPointsDisplay";
+	userPointsDisplay.classList.add("pointsDisplay");
 	userPoints = 0;
-	userScore.textContent = `User Score: ${userPoints}`;
+	userPointsDisplay.textContent = `${userPoints}`;
 
 	const cpuScore = document.createElement("div");
 	cpuScore.id = "cpuScore";
+	cpuScore.textContent = `CPU Score:`;
+
+	const cpuPointsDisplay = document.createElement("div");
+	cpuPointsDisplay.id = "cpuPointsDisplay";
+	cpuPointsDisplay.classList.add("pointsDisplay");
 	cpuPoints = 0;
-	cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+	cpuPointsDisplay.textContent = `${cpuPoints}`;
 
 	const resultResponse = document.createElement("div");
 	resultResponse.id = "resultResponse";
@@ -94,8 +110,11 @@ function setGameBoard(max) {
 	container.removeChild(bestOf5);
 	container.removeChild(bestOf7);
 
-	container.appendChild(userScore);
-	container.appendChild(cpuScore);
+	container.appendChild(scoreBoard);
+	scoreBoard.appendChild(userScore);
+	userScore.appendChild(userPointsDisplay);
+	scoreBoard.appendChild(cpuScore);
+	cpuScore.appendChild(cpuPointsDisplay);
 	container.appendChild(resultResponse);
 	container.appendChild(rock);
 	container.appendChild(paper);
@@ -117,8 +136,7 @@ function resetBoard(gameOverText) {
 	h2.textContent = gameOverText;
 	h3.textContent = "Play Again!";
 
-	container.removeChild(cpuScore);
-	container.removeChild(userScore);
+	container.removeChild(scoreBoard);
 	container.removeChild(resultResponse);
 	container.removeChild(rock);
 	container.removeChild(paper);

@@ -1,0 +1,37 @@
+h1 {
+	text-align: center;
+}
+
+#container {
+	border: solid black 1px;
+	text-align: center;
+}
+
+.bestOf {
+	text-align: center;
+	margin: 1em 1em;
+}
+
+#scoreBoard {
+	display: flex;
+}
+
+#userScore {
+	flex: 1;
+}
+
+#cpuScore {
+	flex: 1;
+}
+
+.pointsDisplay {
+	display: flex;
+	flex-direction: column;
+	border: solid black 1px;
+	margin: 0 2em;
+}
+
+.userSelection {
+	text-align: center;
+	margin: 1em 1em;
+}
