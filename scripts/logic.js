@@ -1,3 +1,14 @@
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+const resultResponse = document.querySelector("#results");
+const userScore = document.querySelector("#userScore");
+const cpuScore = document.querySelector("#cpuScore");
+const gameOver = document.querySelector("#gameOver");
+let userPoints = 0;
+let cpuPoints = 0;
+let maxPoints = 5;
+
 function computerPlay() {
 	let cpuChoice = Math.floor(Math.random() * 3);
 	switch (cpuChoice) {
@@ -25,35 +36,49 @@ function playRound(playerSelection, computerSelection) {
 	}
 }
 
-// function game(user, rounds = 1) {
-// 	let userPoints = 0;
-// 	let cpuPoints = 0;
-// 	let cpu;
-// 	let results;
+function score(result, userPoints, cpuPoints) {
+	if (result === 0) {
+		++userPoints;
+		userScore.textContent = `User Score: ${userPoints}`;
+	} else if (result === 2) {
+		++cpuPoints;
+		cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+	}
+	return [userPoints, cpuPoints];
+}
 
-// 	for (let i = 0; i < rounds; i++) {
-// 		cpu = computerPlay();
-// 		if (user === null) {
-// 			return "Game canceled. Play again soon!";
-// 		}
-// 		results = playRound(user, cpu);
-// 		console.log(results[0]);
-// 		if (results[1] === 0) {
-// 			++userPoints;
-// 		} else if (results[1] === 2) {
-// 			++cpuPoints;
-// 		} else if (results[1] === 1) {
-// 			--i;
-// 		}
-// 	}
+function update(userSelection) {
+	let selection = playRound(userSelection, computerPlay());
+	resultResponse.textContent = selection[0];
+	let scoreUpdate = score(selection[1], userPoints, cpuPoints);
+	userPoints = scoreUpdate[0];
+	cpuPoints = scoreUpdate[1];
 
-// 	if (userPoints > cpuPoints) {
-// 		return `Congratualations! You beat the Computer ${userPoints} to ${cpuPoints}!`;
-// 	} else if (userPoints < cpuPoints) {
-// 		return `You loss to the Computer. ${cpuPoints} to ${userPoints}.`;
-// 	} else {
-// 		return `You and the computer tied. ${cpuPoints} to ${userPoints}. `;
-// 	}
-// }
+	if (userPoints == maxPoints) {
+		gameOver.textContent = `Congratualations! You beat the Computer ${userPoints} to ${cpuPoints}!`;
+		userPoints = 0;
+		cpuPoints = 0;
+		userScore.textContent = `User Score: ${userPoints}`;
+		cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+	} else if (cpuPoints == maxPoints) {
+		gameOver.textContent = `You loss to the Computer. ${cpuPoints} to ${userPoints}.`;
+		userPoints = 0;
+		cpuPoints = 0;
+		userScore.textContent = `User Score: ${userPoints}`;
+		cpuScore.textContent = `CPU Score: ${cpuPoints}`;
+	}
+}
 
-// // console.log(game());
+rock.addEventListener("click", function () {
+	update("rock");
+});
+paper.addEventListener("click", function () {
+	update("paper");
+});
+scissors.addEventListener("click", function () {
+	update("scissors");
+});
+
+// console.log(update("rock"));
+// console.log(update("scissors"));
+// console.log(update("paper"));
