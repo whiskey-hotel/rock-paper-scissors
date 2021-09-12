@@ -55,7 +55,7 @@ function update(userSelection) {
 
 	if (userPoints == maxPoints) {
 		resetBoard(
-			`Congratualations! You beat the Computer ${userPoints} to ${cpuPoints}!`
+			`Congratulations! You beat the Computer ${userPoints} to ${cpuPoints}!`
 		);
 	} else if (cpuPoints == maxPoints) {
 		resetBoard(`You loss to the Computer. ${cpuPoints} to ${userPoints}.`);
