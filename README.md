@@ -10,4 +10,4 @@ In this project we implent a number of topics discussed so far, including:
 </ul>
 
 
-Hosted <a src="https://whiskey-hotel.github.io/rock-paper-scissors/">here</a>.
+Hosted <a href="https://whiskey-hotel.github.io/rock-paper-scissors/">here</a>.
