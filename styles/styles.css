@@ -1,12 +1,37 @@
-h1 {
-	text-align: center;
+@font-face {
+	font-family: "Ozone";
+	src: url("../styles/fonts/FontsFree-Net-Ozone.ttf");
+}
+html,
+body {
+	background: url("../images/stadium-floodlights.jpg") no-repeat center center
+		fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
 }
 
-#container {
-	border: solid black 1px;
+h1 {
 	text-align: center;
-    margin: 0 auto;
-    max-width: 700px;
+    color: #F27515;
+}
+
+h2,h3 {
+    color: #0B1E33;
+}
+#container {
+	background-color: #F7E6D9;
+	border: solid black 5px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    text-align: center;
+	width: 30em;
 }
 
 .bestOf {
@@ -29,8 +54,10 @@ h1 {
 .pointsDisplay {
 	border: solid black 1px;
 	margin: 0 auto;
-    padding: 0.5em;
-	max-width: 1em;
+	padding: 0.5em;
+	width: fit-content;
+    font-family: "Ozone";
+    font-size: 2em;
 }
 
 .userSelection {
